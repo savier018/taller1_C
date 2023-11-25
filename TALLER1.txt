@@ -1,0 +1,17 @@
+GRUPO # 7
+
+Líder: 
+Acosta Suquitana Savier - Computación - Organización de tareas y creador del replit
+
+Integrantes: 
+Bolaños Fajardo Tomas - Computación
+Delgado Cañarte Cesar - Computación
+
+División del taller:
+Cada uno se encargó de trabajar en un archivo distinto, dado que eran tres archivos mínimos la
+división de las tareas no fue un problema. En el archivo main.c trabajó el líder, en los otros
+dos archivos trabajaron los dos integrantes. Adicionalmente, cada uno trabajó mucho más en
+el archivo funciones.c dado que ahí se implementaba la lógica del programa
+
+Enlace del video:
+https://espolec-my.sharepoint.com/:f:/g/personal/saacosta_espol_edu_ec/EjeaNR_UyqZKtb9_PoXM2f4BSYBEbaYzbqmLv3NIhE3qNA?e=UW1bNY
