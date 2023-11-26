@@ -1,33 +1,46 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
-struct Usuario{
-    char nombre_usuario[10];
-    char password[10];
-};
+#define MAX_PRODUCTOS 50
+#define MAX_USUARIOS 10
+#define MAX_VENTAS 50
 
-struct Producto{
+struct Producto {
+    float precioCompra;
+    int codigo; 
     char nombre[50];
     char categoria[50];
-    char marca[50];
-    int codigo;
-    double precio_compra;
+    char marca[50]; 
     char bodega[50];
-    int stock;
 };
 
-struct Registro_Ventas{
+struct RegistroVenta{
+    float precioVenta;
+    int cantidad;
     char local[50];
     char vendedor[50];
-    char fecha_venta[50];
-    double precio_venta;
+    char fechaVenta[20];
 };
 
+struct Usuario{
+    char username[20];
+    char password[20];
+    char rol[20];
+};
 
-void registrarUsuario(struct Usuario usuarios[]);
-void actualizarUsuario(struct Usuario usuarios[]);
-void registrarProducto(struct Producto productos[]);
-void actualizarProductos(struct Producto productos[]);
-void venderProducto(struct Producto produtos[],struct Registro_Ventas rventas[]);
+void crearUsuario(struct Usuario usuarios[], int *numUsuarios);
+void cargarUsuarios(struct Usuario usuarios[], int *numUsuarios);
+void actualizarUsuarios(struct Usuario usuarios[], int numUsuarios);
+void actualizarArchivoUsuarios(struct Usuario usuarios[], int numUsuarios);
+
+void crearProducto(struct Producto productos[], int *numProductos);
+void cargarProductos(struct Producto productos[], int *numProductos);
+void actualizarProductos(struct Producto productos[], int numProductos);
+void actualizarArchivoProductos(struct Producto productos[], int numProductos);
+
+void cargarVentas(struct RegistroVenta ventas[], int *numVentas);
+void actualizarArchivoVentas(struct RegistroVenta ventas[], int numVentas);
+void venderProducto(struct RegistroVenta ventas[], int *numVentas);
+
 
 #endif

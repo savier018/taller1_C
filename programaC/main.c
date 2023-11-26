@@ -1,72 +1,102 @@
 #include <stdio.h>
+#include <string.h>
 #include "funciones.h"
 
-int main(){
-    int opcion;
-    struct Usuario listaUsuarios[10];
-    struct Producto listaProductos[50];
-    struct Registro_Ventas listaVentas[50];
-
+int main() {
+    struct Usuario usuarios[MAX_USUARIOS];
+    struct Producto productos[MAX_PRODUCTOS];
+    struct RegistroVenta ventas[MAX_PRODUCTOS];
+  
+    int numUsuarios = 0;
+    int numProductos = 0;
+    int numVentas = 0;
     
-    while(opcion!=0){
-      printf("Menú:\n");
-      printf("1.-ADMINISTRADOR\n");
-      printf("2.-BODEGUERO\n");
-      printf("3.-VENDEDOR\n");
-      printf("0.-SALIR\n");
-      printf("Ingrese una opción: \n");
-      scanf("%d", &opcion);
-      
-    switch(opcion){
-        case 1:
-            printf("Menú administrador: \n");
-            printf("1) Registrar usuario \n");
-            printf("2) Actualizar usuario \n");
-            printf("Ingrese una opción: \n");
-            scanf("%d", &opcion);
+    cargarUsuarios(usuarios, &numUsuarios);
+    cargarProductos(productos, &numProductos);
+    cargarVentas(ventas, &numVentas);
+  
+    char usuario[20];
+    char contraseña[20];
 
-            if (opcion == 1){
-              registrarUsuario(listaUsuarios);
-            }
+    printf("%s", "BIENVENIDO AL SISTEMA DE VENTA DE PRODUCTOS\n");
+    printf("Ingrese su nombre de usuario: ");
+    scanf("%s", usuario);
+    printf("Ingrese su contraseña: ");
+    scanf("%s", contraseña);
+    printf("%s", "\n");
 
-            if (opcion == 2){
-              actualizarUsuario(listaUsuarios);
-            }
-            
+    int index = -1;
+    for (int i = 0; i < numUsuarios; ++i) {
+        if (strcmp(usuarios[i].username, usuario) == 0 && strcmp(usuarios[i].password, contraseña) == 0){
+            index = i;
             break;
-      
-        case 2:
-            printf("Menú bodeguero: \n");
-            printf("1) Registrar producto \n");
-            printf("2) Actualizar producto \n");
-            printf("Ingrese una opción: \n");
-            scanf("%d", &opcion);
-
-            if (opcion == 1){
-              registrarProducto(listaProductos);
-            }
-
-            if (opcion == 2){
-              actualizarProductos(listaProductos);
-            }
-      
-            break;
-
-        case 3:
-            printf("Menú vendedor: \n");
-            printf("1) Vender producto \n");
-            printf("Ingrese una opción: \n");
-            scanf("%d", &opcion);
-          
-            if (opcion == 1){
-              venderProducto(listaProductos,listaVentas);
-            }
-          
-            break;
-        default :
-            printf("Opción no válida. Por favor, escoga una de las opciones mostradas");
+        }
     }
+
+    if (index != -1) {
+        printf("Inicio de sesión exitoso.\n");
+        printf("Bienvenido, %s.\n", usuario);
+
+        if (strcmp(usuarios[index].rol, "Administrador") == 0) {
+            printf("Usted es un Administrador.\n");
+            printf("%s", "\n");
+        } else if (strcmp(usuarios[index].rol, "Bodeguero") == 0) {
+            printf("Usted es un Bodeguero.\n");
+        } else if (strcmp(usuarios[index].rol, "Vendedor") == 0) {
+            printf("Usted es un Vendedor.\n");
+        } else {
+            printf("Rol no reconocido.\n");
+        }
+
+        if (strcmp(usuarios[index].rol, "Administrador") == 0) {
+            int opcion = 0;
+            printf("%s", "Escoga una opción: \n");
+            printf("1. Registrar nuevo usuario.\n");
+            printf("2. Actualizar usuario.\n");
+            printf("%s", "Opción: ");
+            scanf("%d", &opcion);
+            switch (opcion) {
+              case 1:
+                crearUsuario(usuarios, &numUsuarios);
+              break;
+              case 2:
+                actualizarUsuarios(usuarios, numUsuarios);
+              break;
+            }            
+        }
+
+        if (strcmp(usuarios[index].rol, "Bodeguero") == 0) {
+            int opcion = 0;
+            printf("%s", "Escoga una opción: \n");
+            printf("1. Registrar nuevo producto.\n");
+            printf("2. Actualizar producto.\n");
+            printf("%s", "Opción: ");
+            scanf("%d", &opcion);
+            switch (opcion) {
+              case 1:
+                crearProducto(productos, &numProductos);
+              break;
+              case 2:
+                actualizarProductos(productos, numProductos);
+              break;
+            }            
+        }
+
+        if (strcmp(usuarios[index].rol, "Vendedor") == 0) {
+            int opcion = 0;
+            printf("%s", "Escoga una opción: \n");
+            printf("1. Registrar nueva venta.\n");
+            printf("%s", "Opción: ");
+            scanf("%d", &opcion);
+            switch (opcion) {
+              case 1:
+                venderProducto(ventas, &numVentas);
+              break;
+            }
+    } else {
+        printf("Inicio de sesión fallido. Usuario no encontrado.\n");
     }
     return 0;
+  }
 }
 
